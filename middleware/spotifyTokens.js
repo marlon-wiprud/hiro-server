@@ -129,6 +129,7 @@ const tokenSwap = async (req, res) => {
 };
 
 const tokenRefresh = async (req, res) => {
+  console.log("refreshing token");
   try {
     // ensure refresh token parameter
     if (!req.body.refresh_token) {

@@ -57,6 +57,26 @@ pg_client.connect(err => {
     .catch(err => {
       console.log(err);
     });
+
+  pg_client
+    .query(
+      `CREATE TABLE IF NOT EXISTS user_favorites(
+    _id SERIAL UNIQUE,
+    uid VARCHAR,
+    albumCoverArtURL VARCHAR,
+    duration FLOAT,
+    albumUri VARCHAR,
+    albumName VARCHAR,
+    artistUri VARCHAR,
+    artistName VARCHAR,
+    uri VARCHAR,
+    name VARCHAR,
+    createdAt timestamp NOT NULL
+  )`
+    )
+    .catch(err => {
+      console.log(err);
+    });
 });
 
 module.exports = pg_client;
