@@ -9,6 +9,7 @@ pg_client.connect(err => {
     return console.error("could not connect to postgres", err);
   }
 
+  // users table
   pg_client
     .query(
       `CREATE TABLE IF NOT EXISTS users(
@@ -27,6 +28,7 @@ pg_client.connect(err => {
       console.log("user info already exists");
     });
 
+  // favorite_genre table
   pg_client
     .query(
       `CREATE TABLE IF NOT EXISTS favorite_genre(
@@ -43,6 +45,7 @@ pg_client.connect(err => {
       console.log(err);
     });
 
+  // favorite_artist table
   pg_client
     .query(
       `CREATE TABLE IF NOT EXISTS favorite_artist(
@@ -59,6 +62,7 @@ pg_client.connect(err => {
       console.log(err);
     });
 
+  // user_favorites table
   pg_client
     .query(
       `CREATE TABLE IF NOT EXISTS user_favorites(
@@ -78,6 +82,21 @@ pg_client.connect(err => {
     .catch(err => {
       console.log(err);
     });
+
+  // session store table
+  // pg_client
+  //   .query(
+  //     `
+  //   CREATE TABLE IF NOT EXISTS "session" (
+  //     "sid" varchar NOT NULL COLLATE "default",
+  //     "sess" json NOT NULL,
+  //     "expire" timestamp(6) NOT NULL
+  //   )
+  //   WITH (OIDS=FALSE);
+  //   ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;
+  //   `
+  //   )
+  //   .catch(err => console.log(err));
 });
 
 module.exports = pg_client;

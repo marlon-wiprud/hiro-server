@@ -8,9 +8,6 @@ const QueryString = require("querystring");
 const spClientId = process.env.SPOTIFY_CLIENT_ID;
 const spClientSecret = process.env.SPOTIFY_CLIENT_SECRET;
 const spClientCallback = process.env.SPOTIFY_CLIENT_CALLBACK;
-console.log("CLIENT ID: ", spClientId);
-console.log("CLIENT SECRET: ", spClientSecret);
-console.log("CLIENT CALLBACK: ", spClientCallback);
 
 const authString = Buffer.from(spClientId + ":" + spClientSecret).toString(
   "base64"
