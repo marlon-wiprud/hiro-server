@@ -1,6 +1,7 @@
 const express = require("express");
 const app = new express();
-const port = 3000;
+// heroku sets this automatically
+const port = process.env.PORT || 3000;
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const passport = require("passport");
