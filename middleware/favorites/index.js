@@ -56,7 +56,10 @@ const addFavorite = (req, res, next) => {
 };
 
 const getFavorites = (req, res, next) => {
-  const { uid } = req.params;
+  console.log("getting favorites");
+  const uid = req.params.uid ? req.params.uid : req.user[0].uid;
+  console.log("uid getting favs -->", uid);
+
   pg_client
     .query(
       `SELECT * 
@@ -74,6 +77,7 @@ const getFavorites = (req, res, next) => {
 };
 
 const buildFavoritesLookup = (req, res, next) => {
+  console.log("building favorites lookup");
   const data = res.locals.favorites;
 
   const dictionary = {};
@@ -82,10 +86,8 @@ const buildFavoritesLookup = (req, res, next) => {
     dictionary[data[i].uri] = 1;
   }
 
-  const responseObj = { favsDictionary: dictionary, favsArray: data };
-
-  console.log("dictoionary---->", dictionary);
-  res.status(200).send(JSON.stringify(responseObj));
+  res.locals.favoritesLookup = dictionary;
+  next();
 };
 
 const deleteFavorite = (req, res, next) => {

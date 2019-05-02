@@ -11,18 +11,19 @@ pg_client.connect(err => {
 
   pg_client
     .query(
-      `CREATE TABLE IF NOT EXISTS user_info(
+      `CREATE TABLE IF NOT EXISTS users(
     _id SERIAL UNIQUE,
-    uid VARCHAR UNIQUE,
+    uid VARCHAR UNIQUE NOT NULL,
     firstname VARCHAR(100) NOT NULL,
     lastname VARCHAR(100) NOT NULL,
+    password VARCHAR(60) NOT NULL,
+    email VARCHAR(100) NOT NULL,
     createdAt timestamp NOT NULL,
     updatedAt timestamp,
     PRIMARY KEY (uid)
   )`
     )
     .catch(err => {
-      // console.log(err);
       console.log("user info already exists");
     });
 
@@ -30,12 +31,12 @@ pg_client.connect(err => {
     .query(
       `CREATE TABLE IF NOT EXISTS favorite_genre(
     _id SERIAL UNIQUE,
-    uid VARCHAR,
+    uid VARCHAR NOT NULL,
     genre VARCHAR(20) NOT NULL,
     createdAt timestamp NOT NULL,
     updatedAt timestamp,
     PRIMARY KEY (_id),
-    FOREIGN KEY (uid) REFERENCES user_info(uid)
+    FOREIGN KEY (uid) REFERENCES users(uid)
   )`
     )
     .catch(err => {
@@ -46,12 +47,12 @@ pg_client.connect(err => {
     .query(
       `CREATE TABLE IF NOT EXISTS favorite_artist(
     _id SERIAL UNIQUE,
-    uid VARCHAR,
+    uid VARCHAR NOT NULL,
     artist VARCHAR(100) UNIQUE NOT NULL,
     createdAt timestamp NOT NULL,
     updatedAt timestamp,
     PRIMARY KEY (_id),
-    FOREIGN KEY (uid) REFERENCES user_info(uid)
+    FOREIGN KEY (uid) REFERENCES users(uid)
   )`
     )
     .catch(err => {
@@ -62,7 +63,7 @@ pg_client.connect(err => {
     .query(
       `CREATE TABLE IF NOT EXISTS user_favorites(
     _id SERIAL UNIQUE,
-    uid VARCHAR,
+    uid VARCHAR NOT NULL,
     albumCoverArtURL VARCHAR,
     duration FLOAT,
     albumUri VARCHAR,
