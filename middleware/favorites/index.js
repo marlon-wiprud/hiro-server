@@ -72,7 +72,7 @@ const getFavorites = (req, res, next) => {
     })
     .catch(err => {
       console.log(err);
-      res.status(200).send(JSON.stringify({ error: "error" }));
+      res.status(400).send(JSON.stringify({ error: "error" }));
     });
 };
 

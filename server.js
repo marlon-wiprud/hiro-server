@@ -106,14 +106,29 @@ app.post(
 );
 
 // get favorites
-app.get("/favorites/:uid", getFavorites, buildFavoritesLookup);
+app.get("/favorites/:uid", getFavorites, buildFavoritesLookup, (req, res) => {
+  const { favoritesLookup, favorites } = res.locals;
+  const responseObj = {
+    favsDictionary: favoritesLookup,
+    favsArray: favorites
+  };
+  res.status(200).send(JSON.stringify(responseObj));
+});
 
 // unfavorite - returns new fav list
 app.delete(
   "/favorites/:uid",
   deleteFavorite,
   getFavorites,
-  buildFavoritesLookup
+  buildFavoritesLookup,
+  (req, res) => {
+    const { favoritesLookup, favorites } = res.locals;
+    const responseObj = {
+      favsDictionary: favoritesLookup,
+      favsArray: favorites
+    };
+    res.status(200).send(JSON.stringify(responseObj));
+  }
 );
 
 app.listen(port, () => {
